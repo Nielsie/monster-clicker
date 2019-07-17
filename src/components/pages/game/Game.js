@@ -33,19 +33,6 @@ class Game extends React.PureComponent {
     }
 
     componentDidMount() {
-        /*this.setState((state) => ({
-            entities: {
-                ...state.entities,
-                pc: {
-                    ...state.entities.pc,
-                    vitals: {
-                        ...state.entities.pc.vitals,
-                        [VITALS.HEALTH]: 10,
-                    }
-                }
-            }
-        }));*/
-
         this.setState((state) => ({
             entities: {
                 ...state.entities,
@@ -53,6 +40,18 @@ class Game extends React.PureComponent {
             },
         }));
     }
+
+    onEnemyClick = (enemyId) => () => {
+        this.setState((state) => ({
+            entities: {
+                ...state.entities,
+                [enemyId]: {
+                    ...state.entities[enemyId],
+                    health: Math.max(0, state.entities[enemyId].health - state.entities.pc.damage),
+                },
+            },
+        }));
+    };
 
     render() {
         const {classes} = this.props;
@@ -66,10 +65,10 @@ class Game extends React.PureComponent {
                                 <EntityCard
                                     label={this.state.entities.pc.label}
                                     type={this.state.entities.pc.type}
-                                    health={this.state.entities.pc.vitals[VITALS.HEALTH]}
-                                    healthMax={RULES.maxHealth(this.state.entities.pc)}
-                                    mana={this.state.entities.pc.vitals[VITALS.MANA]}
-                                    manaMax={RULES.maxMana(this.state.entities.pc)}
+                                    health={this.state.entities.pc.health}
+                                    healthMax={this.state.entities.pc.maxHealth}
+                                    mana={this.state.entities.pc.mana}
+                                    manaMax={this.state.entities.pc.maxMana}
                                     image={this.state.entities.pc.image}
                                 />
                             </Grid>
@@ -79,12 +78,13 @@ class Game extends React.PureComponent {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 {this.state.entities.bandit1 && <EntityCard
+                                    onClick={this.onEnemyClick('bandit1')}
                                     label={this.state.entities.bandit1.label}
                                     type={this.state.entities.bandit1.type}
-                                    health={this.state.entities.bandit1.vitals[VITALS.HEALTH]}
-                                    healthMax={RULES.maxHealth(this.state.entities.bandit1)}
-                                    mana={this.state.entities.bandit1.vitals[VITALS.MANA]}
-                                    manaMax={RULES.maxMana(this.state.entities.bandit1)}
+                                    health={this.state.entities.bandit1.health}
+                                    healthMax={this.state.entities.bandit1.maxHealth}
+                                    mana={this.state.entities.bandit1.mana}
+                                    manaMax={this.state.entities.bandit1.maxMana}
                                     image={this.state.entities.bandit1.image}
                                 />}
                             </Grid>
