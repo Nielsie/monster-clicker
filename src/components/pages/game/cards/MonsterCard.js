@@ -1,29 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Card, CardActionArea, CardContent, LinearProgress, Typography} from "@material-ui/core";
-import {getImage} from "../../../../utils/imageUtils";
+import {Box, Card, CardActionArea, CardContent, LinearProgress, Typography, withStyles} from "@material-ui/core";
+import {HealthBar} from "./StatBar";
 
 export const MonsterCard = props => {
+    const {classes} = props;
+
+    const onCardClick = () => props.onClick && props.onClick();
+
     return (
         <Card>
-            <CardActionArea>
+            <CardActionArea onClick={onCardClick}>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
-                        Goblin
+                        {props.monster.name}
                     </Typography>
                     <Box clone height={25}>
-                        <LinearProgress
-                            variant="determinate"
-                            value={100}
-                            classes={{
-                                root: classes.root,
-                                colorPrimary: classes.healthColor,
-                                barColorPrimary: classes.healthColorBar,
-                            }}
+                        <HealthBar
+                            value={props.monster.health}
+                            max={props.monster.maxHealth}
                         />
                     </Box>
                 </CardContent>
                 <img
-                    src={getImage('images/creatures/goblin01.png')}
+                    src={props.monster.image}
                     width="100%"
                     alt="monster"
                 />
