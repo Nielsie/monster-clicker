@@ -1,23 +1,28 @@
-import React from 'react';
-import {Route, Switch, withRouter} from "react-router-dom";
-import Home from "./components/pages/home/Home";
-import Game from "./components/pages/game/Game";
+import React, {useEffect, useState} from 'react';
+import {Box, createTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
+import {Header} from "./components/core/header/Header";
+import {Route, Switch} from "react-router";
+import {Game} from "./components/pages/game/Game";
 
+const theme = createTheme({
+    typography: {
+        useNextVariants: true,
+    },
+});
 
-const App = () => {
+export const App = props => {
     return (
-        <div>
-            <Switch>
-                <Route exact path='/' component={Home}/>
-
-                {/*<Route path='/home' component={Home}/>
-                <Route path='/newgame' component={NewGame}/>*/}
-                <Route path='/game' component={Game}/>
-
-                <Route exact path='*' component={Home}/>
-            </Switch>
-        </div>
-    );
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline/>
+            <Box>
+                <Header/>
+                <Box p={1}>
+                    <Switch>
+                        <Route exact path='/' component={Game}/>
+                        <Route exact path='*' component={Game}/>
+                    </Switch>
+                </Box>
+            </Box>
+        </MuiThemeProvider>
+    )
 };
-
-export default App;
