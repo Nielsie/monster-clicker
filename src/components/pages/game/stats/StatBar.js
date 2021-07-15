@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {LinearProgress, withStyles} from "@material-ui/core";
-import {red} from "@material-ui/core/colors";
+import {LinearProgress} from "@material-ui/core";
 
 export const StatBar = props => {
     const value = props.value * 100 / props.max;
@@ -16,16 +15,3 @@ export const StatBar = props => {
         />
     );
 };
-
-const healthBarStyles = () => ({
-    root: {
-        height: 25,
-    },
-    statColor: {
-        backgroundColor: red[100],
-    },
-    statColorBar: {
-        backgroundColor: red['500'],
-    },
-});
-export const HealthBar = withStyles(healthBarStyles)(StatBar)

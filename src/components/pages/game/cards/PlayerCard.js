@@ -4,19 +4,19 @@ import {Box, Card, CardContent, Typography} from "@material-ui/core";
 export const PlayerCard = props => {
     return (
         <Card>
-            <Box display="flex" justify-content="flex-start">
+            <Box display="flex">
                 <img
-                    src={props.player.image}
+                    src={props.image}
                     width={120}
                     height={120}
                     alt="player"
                 />
                 <CardContent>
                     <Typography component="h6" variant="h6">
-                        {props.player.name}
+                        {props.name}
                     </Typography>
                     <Typography component="body2">
-                        {`${props.player.gold} gold`}
+                        {`${props.gold} gold`}
                     </Typography>
                 </CardContent>
             </Box>

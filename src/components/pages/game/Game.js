@@ -20,7 +20,7 @@ export const Game = props => {
     });
 
     useEffect(() => {
-        if (monster.health < 0) {
+        if (monster.health <= 0) {
             setPlayer(current => ({
                 ...current,
                 gold: current.gold + 1,
@@ -45,12 +45,17 @@ export const Game = props => {
         <Grid container spacing={2}>
             <Grid item xs={12} md={6} lg={4}>
                 <PlayerCard
-                    player={player}
+                    name={player.name}
+                    image={player.image}
+                    gold={player.gold}
                 />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
                 <MonsterCard
-                    monster={monster}
+                    name={monster.name}
+                    image={monster.image}
+                    health={monster.health}
+                    maxHealth={monster.maxHealth}
                     onClick={onMonsterClick}
                 />
             </Grid>

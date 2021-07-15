@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Card, CardActionArea, CardContent, LinearProgress, Typography, withStyles} from "@material-ui/core";
-import {HealthBar} from "./StatBar";
+import {Box, Card, CardActionArea, CardContent, Typography} from "@material-ui/core";
+import {HealthBar} from "../stats/HealthBar";
 
 export const MonsterCard = props => {
-    const {classes} = props;
-
     const onCardClick = () => props.onClick && props.onClick();
 
     return (
@@ -12,17 +10,17 @@ export const MonsterCard = props => {
             <CardActionArea onClick={onCardClick}>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
-                        {props.monster.name}
+                        {props.name}
                     </Typography>
                     <Box clone height={25}>
                         <HealthBar
-                            value={props.monster.health}
-                            max={props.monster.maxHealth}
+                            value={props.health}
+                            max={props.maxHealth}
                         />
                     </Box>
                 </CardContent>
                 <img
-                    src={props.monster.image}
+                    src={props.image}
                     width="100%"
                     alt="monster"
                 />
