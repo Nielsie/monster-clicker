@@ -1,6 +1,6 @@
-import {red} from "@material-ui/core/colors";
-import {withStyles} from "@material-ui/core";
 import {StatBar} from "./StatBar";
+import {withStyles} from "@mui/styles";
+import {red} from "@mui/material/colors";
 
 const healthBarStyles = () => ({
     root: {

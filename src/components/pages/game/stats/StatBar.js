@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {LinearProgress} from "@material-ui/core";
+import {LinearProgress} from "@mui/material";
 
 export const StatBar = props => {
     const value = props.value * 100 / props.max;

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
-import {AppBar, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Toolbar, Typography} from "@mui/material";
 
 export const Header = withRouter((props) => {
     return (

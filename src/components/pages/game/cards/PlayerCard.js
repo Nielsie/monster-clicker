@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Card, CardContent, Typography} from "@material-ui/core";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 
 export const PlayerCard = props => {
     return (
@@ -15,7 +15,7 @@ export const PlayerCard = props => {
                     <Typography component="h6" variant="h6">
                         {props.name}
                     </Typography>
-                    <Typography component="body2">
+                    <Typography variant="body2">
                         {`${props.gold} gold`}
                     </Typography>
                 </CardContent>

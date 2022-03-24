@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Box, createTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
 import {Header} from "./components/core/header/Header";
 import {Route, Switch} from "react-router";
 import {Game} from "./components/pages/game/Game";
+import {Box, CssBaseline, ThemeProvider} from "@mui/material";
+import { createTheme } from '@mui/material/styles'
 
-const theme = createTheme({
-    typography: {
-        useNextVariants: true,
-    },
-});
+const theme = createTheme();
 
 export const App = props => {
     return (
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Box>
                 <Header/>
@@ -23,6 +20,6 @@ export const App = props => {
                     </Switch>
                 </Box>
             </Box>
-        </MuiThemeProvider>
+        </ThemeProvider>
     )
 };
