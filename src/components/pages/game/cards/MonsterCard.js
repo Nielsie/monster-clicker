@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import {HealthBar} from "../stats/HealthBar";
 import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 

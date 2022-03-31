@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import {LinearProgress} from "@mui/material";
 
 export const StatBar = props => {

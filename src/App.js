@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import {Header} from "./components/core/header/Header";
 import {Route, Switch} from "react-router";
 import {Game} from "./components/pages/game/Game";

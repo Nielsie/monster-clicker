@@ -4,15 +4,8 @@ import {MonsterCard} from "./cards/MonsterCard";
 import {getImage} from "../../../utils/imageUtils";
 import {MONSTER_ENGINE} from "../../../engines/monsterEngine";
 import {Grid, Stack} from "@mui/material";
-import * as PropTypes from "prop-types";
 import {MonsterSlider} from "./animations/MonsterSlider";
 
-MonsterSlider.propTypes = {
-    direction: PropTypes.any,
-    in: PropTypes.bool,
-    onExited: PropTypes.func,
-    children: PropTypes.node
-};
 export const Game = props => {
     const [player, setPlayer] = useState({
         name: 'Gelart of Livia',
