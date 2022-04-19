@@ -5,12 +5,16 @@ export const TitleCard = props => {
     return (
         <Card sx={{backgroundColor: props.background || 'inherit'}}>
             <Box display="flex">
-                {props.image && <img
-                    src={props.image}
-                    width={160}
-                    height={160}
-                    alt="player"
-                />}
+                {props.image && (
+                    <Box sx={{backgroundImage:`url("${props.backgroundImage}")`}} height={160}>
+                        <img
+                            src={props.image}
+                            width={160}
+                            height={160}
+                            alt="player"
+                        />
+                    </Box>
+                )}
                 <Box display="flex" flexDirection="column">
                     <CardContent sx={{color: props.color || 'inherit'}}>
                         <Typography component="h6" variant="h6">

@@ -5,12 +5,8 @@ import {MONSTER_ENGINE} from "../../../engines/monsterEngine";
 import {
     Box,
     Button,
-    Card,
-    CardActionArea,
-    CardMedia,
     Grid,
     Stack,
-    Tooltip
 } from "@mui/material";
 import {MonsterSlider} from "./animations/MonsterSlider";
 import {TitleCard} from "./cards/TitleCard";
@@ -18,6 +14,7 @@ import {WORLD_ENGINE} from "../../../engines/worldEngine";
 import {useTheme} from "@mui/styles";
 import {values} from "ramda";
 import {useGameLoop} from "./useGameLoop";
+import {GearIconButton} from "./buttons/GearIconButton";
 
 const GEAR_TYPES = {
     WEAPON: 'WEAPON',
@@ -32,8 +29,8 @@ const gameDefaults = {
         damage: 1,
         gold: 0,
         gear: {
-            weapon: {id: 'SHORT_SWORD', name: 'Short sword', damage: 1, tier: 1, type: GEAR_TYPES.WEAPON, image: getImage('images/resources/weapons/sword01.png')},
-            feat1: {id: 'MAGIC_MISSILE', name: 'Magic Missile', damage: 5, tier: 1, cooldown: 4, cooldownMax: 4, type: GEAR_TYPES.MAGIC, image: getImage('images/resources/magic/magicmissile01.png')},
+            weapon: {id: 'SHORT_SWORD', name: 'Short sword', damage: 1, tier: 1, cooldown: -1, type: GEAR_TYPES.WEAPON, image: getImage('images/resources/weapons/sword01.png')},
+            feat1: {id: 'MAGIC_MISSILE', name: 'Magic Missile', damage: 5, tier: 1, cooldown: 4000, type: GEAR_TYPES.MAGIC, image: getImage('images/resources/magic/magicmissile01.png')},
             feat2: null,
             feat3: null,
             feat4: null,
@@ -41,23 +38,6 @@ const gameDefaults = {
     },
     monster: MONSTER_ENGINE.spawn(1),
 };
-
-const renderGearIcon = gear => gear && (
-    <Box key={gear.id} clone mr={0.5} mb={0.5}>
-        <Tooltip title={`${gear.name} (Tier ${gear.tier}) does ${gear.damage} damage`} placement="top-start" arrow>
-            <Card>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        height={32}
-                        width={32}
-                        image={gear.image}
-                    />
-                </CardActionArea>
-            </Card>
-        </Tooltip>
-    </Box>
-)
 
 export const Game = props => {
     const theme = useTheme();
@@ -94,18 +74,30 @@ export const Game = props => {
         setMonster(() => MONSTER_ENGINE.spawn(world.level));
     };
 
+    const onGearIconClick = damage => () => setMonster(MONSTER_ENGINE.doDamage(damage));
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} md={6} lg={4}>
                 <Stack direction="column" spacing={2}>
                     <TitleCard
                         image={player.image}
+                        backgroundImage={world.thumbnail}
                         title={player.name}
                         subtitle={`${player.gold} Gold`}
                     >
                         <Stack direction="row" spacing={1} alignItems="flex-start">
                             <Box display="flex" flexDirection="row" flexWrap="wrap">
-                                {values(player.gear).map(renderGearIcon)}
+                                {values(player.gear).map(gear => gear && (
+                                    <GearIconButton
+                                        key={gear.id}
+                                        title={`${gear.name} (Tier ${gear.tier}) does ${gear.damage} ${gear.cooldown > 0 ? '' : 'click '}damage`}
+                                        cooldown={gear.cooldown}
+                                        image={gear.image}
+                                        deltaTime={deltaTime}
+                                        onClick={onGearIconClick(gear.damage)}
+                                    />
+                                ))}
                             </Box>
                             <Button variant="contained" size="small">Shop</Button>
                         </Stack>
@@ -117,7 +109,6 @@ export const Game = props => {
                     <TitleCard
                         background={theme.palette.primary.main}
                         color={theme.palette.primary.contrastText}
-                        /*image={player.image}*/
                         title={`Level ${world.level} - ${world.name}`}
                         subtitle={`Killed ${world.progress} out of 10`}
                     />
@@ -129,6 +120,7 @@ export const Game = props => {
                         <MonsterCard
                             name={monster.name}
                             image={monster.image}
+                            backgroundImage={world.image}
                             health={monster.health}
                             maxHealth={monster.maxHealth}
                             onClick={onMonsterClick}

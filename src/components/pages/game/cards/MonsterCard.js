@@ -1,14 +1,19 @@
 import {HealthBar} from "../stats/HealthBar";
-import {Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardActionArea, CardContent, Typography, useTheme} from "@mui/material";
 
 export const MonsterCard = props => {
+    const theme = useTheme();
+
     const onCardClick = () => props.onClick && props.onClick();
 
     return (
         <Card>
-            <CardActionArea onClick={onCardClick} disabled={props.health <= 0}>
+            <CardActionArea
+                onClick={onCardClick} disabled={props.health <= 0}
+                sx={{backgroundImage: `url("${props.backgroundImage}")`}}
+            >
                 <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom color={theme.palette.primary.contrastText}>
                         {props.name}
                     </Typography>
                     <Box clone height={25}>
